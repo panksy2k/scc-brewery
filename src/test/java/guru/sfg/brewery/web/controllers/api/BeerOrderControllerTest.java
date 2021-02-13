@@ -50,9 +50,9 @@ class BeerOrderControllerTest extends BaseIT {
 
     @BeforeEach
     void setUp() {
-        stPeteCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.ST_PETE_DISTRIBUTING).orElseThrow();
-        dunedinCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.DUNEDIN_DISTRIBUTING).orElseThrow();
-        keyWestCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.KEY_WEST_DISTRIBUTORS).orElseThrow();
+        stPeteCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.PANKAJ_PARDASANI).orElseThrow();
+        dunedinCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.NIKKI_PARDASANI).orElseThrow();
+        keyWestCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.DEETYA_PARDASANI).orElseThrow();
         loadedBeers = beerRepository.findAll();
     }
 
@@ -87,7 +87,7 @@ class BeerOrderControllerTest extends BaseIT {
                 .andExpect(status().isCreated());
     }
 
-    @WithUserDetails(DefaultBreweryLoader.STPETE_USER)
+    @WithUserDetails(DefaultBreweryLoader.PANKAJ_USER)
     @Test
     void createOrderUserAuthCustomer() throws Exception {
         BeerOrderDto beerOrderDto = buildOrderDto(stPeteCustomer, loadedBeers.get(0).getId());
@@ -100,7 +100,7 @@ class BeerOrderControllerTest extends BaseIT {
                 .andExpect(status().isCreated());
     }
 
-    @WithUserDetails(DefaultBreweryLoader.KEYWEST_USER)
+    @WithUserDetails(DefaultBreweryLoader.DEETYA_USER)
     @Test
     void createOrderUserNOTAuthCustomer() throws Exception {
         BeerOrderDto beerOrderDto = buildOrderDto(stPeteCustomer, loadedBeers.get(0).getId());
@@ -127,14 +127,14 @@ class BeerOrderControllerTest extends BaseIT {
                 .andExpect(status().isOk());
     }
 
-    @WithUserDetails(value = DefaultBreweryLoader.STPETE_USER)
+    @WithUserDetails(value = DefaultBreweryLoader.PANKAJ_USER)
     @Test
     void listOrdersCustomerAuth() throws Exception {
         mockMvc.perform(get(API_ROOT + stPeteCustomer.getId() + "/orders"))
                 .andExpect(status().isOk());
     }
 
-    @WithUserDetails(value = DefaultBreweryLoader.DUNEDIN_USER)
+    @WithUserDetails(value = DefaultBreweryLoader.NIKKI_USER)
     @Test
     void listOrdersCustomerNOTAuth() throws Exception {
         mockMvc.perform(get(API_ROOT + stPeteCustomer.getId() + "/orders"))
@@ -167,7 +167,7 @@ class BeerOrderControllerTest extends BaseIT {
     }
 
     @Transactional
-    @WithUserDetails(DefaultBreweryLoader.STPETE_USER)
+    @WithUserDetails(DefaultBreweryLoader.PANKAJ_USER)
     @Test
     void getByOrderIdCustomerAuth() throws Exception {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
@@ -177,7 +177,7 @@ class BeerOrderControllerTest extends BaseIT {
     }
 
     @Transactional
-    @WithUserDetails(DefaultBreweryLoader.DUNEDIN_USER)
+    @WithUserDetails(DefaultBreweryLoader.NIKKI_USER)
     @Test
     void getByOrderIdCustomerNOTAuth() throws Exception {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
@@ -207,7 +207,7 @@ class BeerOrderControllerTest extends BaseIT {
     }
 
     @Transactional
-    @WithUserDetails(DefaultBreweryLoader.STPETE_USER)
+    @WithUserDetails(DefaultBreweryLoader.PANKAJ_USER)
     @Test
     void pickUpOrderCustomerUserAUTH() throws Exception {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
@@ -217,7 +217,7 @@ class BeerOrderControllerTest extends BaseIT {
     }
 
     @Transactional
-    @WithUserDetails(DefaultBreweryLoader.DUNEDIN_USER)
+    @WithUserDetails(DefaultBreweryLoader.NIKKI_USER)
     @Test
     void pickUpOrderCustomerUserNOT_AUTH() throws Exception {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();

@@ -46,12 +46,12 @@ import java.util.UUID;
 public class DefaultBreweryLoader implements CommandLineRunner {
 
     public static final String TASTING_ROOM = "Tasting Room";
-    public static final String ST_PETE_DISTRIBUTING = "St Pete Distributing";
-    public static final String DUNEDIN_DISTRIBUTING = "Dunedin Distributing";
-    public static final String KEY_WEST_DISTRIBUTORS = "Key West Distributors";
-    public static final String STPETE_USER = "stpete";
-    public static final String DUNEDIN_USER = "dunedin";
-    public static final String KEYWEST_USER = "keywest";
+    public static final String PANKAJ_PARDASANI = "Pankaj Pardasani";
+    public static final String NIKKI_PARDASANI = "Nikki Pardasani";
+    public static final String DEETYA_PARDASANI = "Deetya Pardasani";
+    public static final String PANKAJ_USER = "panksy2k";
+    public static final String NIKKI_USER = "nikki";
+    public static final String DEETYA_USER = "deetya";
 
     public static final String BEER_1_UPC = "0631234200036";
     public static final String BEER_2_UPC = "0631234300019";
@@ -79,39 +79,42 @@ public class DefaultBreweryLoader implements CommandLineRunner {
         Role customerRole = roleRepository.findByName("CUSTOMER").orElseThrow();
 
         //create customers
-        Customer stPeteCustomer = customerRepository.save(Customer.builder()
-                .customerName(ST_PETE_DISTRIBUTING)
+        Customer pankaj = customerRepository.save(Customer.builder()
+                .customerName(PANKAJ_PARDASANI)
                 .apiKey(UUID.randomUUID())
+                .topTitle(TopTitle.builder().jobTitle("Senior Java Developer").fullName("Pankaj Pardasani").build())
                 .build());
 
         Customer dunedinCustomer = customerRepository.save(Customer.builder()
-                .customerName(DUNEDIN_DISTRIBUTING)
+                .customerName(NIKKI_PARDASANI)
                 .apiKey(UUID.randomUUID())
+                .topTitle(TopTitle.builder().jobTitle("Maths Teacher").fullName("Pooja Balani (Nikki Pardasani)").build())
                 .build());
 
         Customer keyWestCustomer = customerRepository.save(Customer.builder()
-                .customerName(KEY_WEST_DISTRIBUTORS)
+                .customerName(DEETYA_PARDASANI)
                 .apiKey(UUID.randomUUID())
+                .topTitle(TopTitle.builder().jobTitle("Student").fullName("Deetya Pardasani").build())
                 .build());
 
         //create users
-        User stPeteUser = userRepository.save(User.builder().username(STPETE_USER)
+        User pankajUser = userRepository.save(User.builder().username(PANKAJ_USER)
                 .password(passwordEncoder.encode("password"))
-                .customer(stPeteCustomer)
+                .customer(pankaj)
                 .role(customerRole).build());
 
-        User dunedinUser = userRepository.save(User.builder().username(DUNEDIN_USER)
+        User nikkiUser = userRepository.save(User.builder().username(NIKKI_USER)
                 .password(passwordEncoder.encode("password"))
                 .customer(dunedinCustomer)
                 .role(customerRole).build());
 
-        User keywest = userRepository.save(User.builder().username(KEYWEST_USER)
+        User deetyaUser = userRepository.save(User.builder().username(DEETYA_USER)
                 .password(passwordEncoder.encode("password"))
                 .customer(keyWestCustomer)
                 .role(customerRole).build());
 
         //create orders
-        createOrder(stPeteCustomer);
+        createOrder(pankaj);
         createOrder(dunedinCustomer);
         createOrder(keyWestCustomer);
 

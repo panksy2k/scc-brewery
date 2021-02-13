@@ -44,9 +44,9 @@ class BeerOrderControllerV2Test extends BaseIT {
 
     @BeforeEach
     void setUp() {
-        stPeteCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.ST_PETE_DISTRIBUTING).orElseThrow();
-        dunedinCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.DUNEDIN_DISTRIBUTING).orElseThrow();
-        keyWestCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.KEY_WEST_DISTRIBUTORS).orElseThrow();
+        stPeteCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.PANKAJ_PARDASANI).orElseThrow();
+        dunedinCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.NIKKI_PARDASANI).orElseThrow();
+        keyWestCustomer = customerRepository.findAllByCustomerName(DefaultBreweryLoader.DEETYA_PARDASANI).orElseThrow();
         loadedBeers = beerRepository.findAll();
     }
 
@@ -63,14 +63,14 @@ class BeerOrderControllerV2Test extends BaseIT {
                 .andExpect(status().isOk());
     }
 
-    @WithUserDetails(value = DefaultBreweryLoader.STPETE_USER)
+    @WithUserDetails(value = DefaultBreweryLoader.PANKAJ_USER)
     @Test
     void listOrdersCustomerAuth() throws Exception {
         mockMvc.perform(get(API_ROOT))
                 .andExpect(status().isOk());
     }
 
-    @WithUserDetails(value = DefaultBreweryLoader.DUNEDIN_USER)
+    @WithUserDetails(value = DefaultBreweryLoader.NIKKI_USER)
     @Test
     void listOrdersCustomerDunedinAuth() throws Exception {
         mockMvc.perform(get(API_ROOT ))
@@ -98,7 +98,7 @@ class BeerOrderControllerV2Test extends BaseIT {
     }
 
     @Transactional
-    @WithUserDetails(DefaultBreweryLoader.STPETE_USER)
+    @WithUserDetails(DefaultBreweryLoader.PANKAJ_USER)
     @Test
     void getByOrderIdCustomerAuth() throws Exception {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
@@ -108,7 +108,7 @@ class BeerOrderControllerV2Test extends BaseIT {
     }
 
     @Transactional
-    @WithUserDetails(DefaultBreweryLoader.DUNEDIN_USER)
+    @WithUserDetails(DefaultBreweryLoader.NIKKI_USER)
     @Test
     void getByOrderIdCustomerNOTAuth() throws Exception {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
