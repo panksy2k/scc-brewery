@@ -38,12 +38,18 @@ public class Customer extends BaseEntity {
 
     @Builder
     public Customer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
-                    UUID apiKey, Set<BeerOrder> beerOrders, TopTitle topTitle) {
+                    UUID apiKey, Set<BeerOrder> beerOrders, TopTitle topTitle,
+                    AboutMyself aboutme,
+                    Set<MyServices> allServices,
+                    Set<MySkills> allSkills) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerName = customerName;
         this.apiKey = apiKey;
         this.beerOrders = beerOrders;
         this.topTitle = topTitle;
+        this.aboutMyself = aboutme;
+        this.myServices = allServices;
+        this.mySkills = allSkills;
     }
 
     private String customerName;
@@ -56,6 +62,15 @@ public class Customer extends BaseEntity {
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TopTitle topTitle;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private AboutMyself aboutMyself;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<MyServices> myServices;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<MySkills> mySkills;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users;

@@ -83,6 +83,9 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                 .customerName(PANKAJ_PARDASANI)
                 .apiKey(UUID.randomUUID())
                 .topTitle(TopTitle.builder().jobTitle("Senior Java Developer").fullName("Pankaj Pardasani").build())
+                .aboutme(AboutMyself.builder().aboutMyself("This is about me").build())
+                .allServices(Set.of(MyServices.builder().title("Web Development").description("Web Development").build()))
+                .allSkills(Set.of(MySkills.builder().skill("Java").rating((short) 9).build()))
                 .build());
 
         Customer dunedinCustomer = customerRepository.save(Customer.builder()
