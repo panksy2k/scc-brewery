@@ -46,6 +46,6 @@ public class TopTitle extends BaseEntity {
     private String jobTitle;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 }

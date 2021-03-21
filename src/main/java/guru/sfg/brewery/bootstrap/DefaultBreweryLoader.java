@@ -31,10 +31,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -84,19 +81,21 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                 .apiKey(UUID.randomUUID())
                 .topTitle(TopTitle.builder().jobTitle("Senior Java Developer").fullName("Pankaj Pardasani").build())
                 .aboutme(AboutMyself.builder().aboutMyself("This is about me").build())
-                
+                .servicesOffered(Collections.emptySet())
                 .build());
 
         Customer dunedinCustomer = customerRepository.save(Customer.builder()
                 .customerName(NIKKI_PARDASANI)
                 .apiKey(UUID.randomUUID())
                 .topTitle(TopTitle.builder().jobTitle("Maths Teacher").fullName("Pooja Balani (Nikki Pardasani)").build())
+                .servicesOffered(Collections.emptySet())
                 .build());
 
         Customer keyWestCustomer = customerRepository.save(Customer.builder()
                 .customerName(DEETYA_PARDASANI)
                 .apiKey(UUID.randomUUID())
                 .topTitle(TopTitle.builder().jobTitle("Student").fullName("Deetya Pardasani").build())
+                .servicesOffered(Collections.emptySet())
                 .build());
 
         //create users

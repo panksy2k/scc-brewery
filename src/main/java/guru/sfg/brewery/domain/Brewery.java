@@ -41,5 +41,4 @@ public class Brewery extends BaseEntity {
     }
 
     private String breweryName;
-
 }

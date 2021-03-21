@@ -17,10 +17,9 @@
 package guru.sfg.brewery.domain;
 
 import guru.sfg.brewery.domain.security.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -30,8 +29,7 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-01-26.
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
 public class Customer extends BaseEntity {
@@ -39,15 +37,14 @@ public class Customer extends BaseEntity {
     @Builder
     public Customer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
                     UUID apiKey, Set<BeerOrder> beerOrders, TopTitle topTitle,
-                    AboutMyself aboutme
-                    ) {
+                    AboutMyself aboutme, Set<CustomerServices> servicesOffered) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerName = customerName;
         this.apiKey = apiKey;
         this.beerOrders = beerOrders;
         this.topTitle = topTitle;
         this.aboutMyself = aboutme;
-
+        this.customerServicesOfferedSet = servicesOffered;
     }
 
     private String customerName;
@@ -64,8 +61,10 @@ public class Customer extends BaseEntity {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private AboutMyself aboutMyself;
 
-
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
+    private Set<CustomerServices> customerServicesOfferedSet;
 }
